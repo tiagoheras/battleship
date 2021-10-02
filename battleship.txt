@@ -1,0 +1,9 @@
+What data does the ship factory need to build a ship?
+It needs the length.
+
+What does the ship need to do?
+It should be able to listen to hits and if hits are equal to the length it should sink.
+
+What should we test? 
+That the factory creates ships succesfully.
+That ships behave according to plan.
