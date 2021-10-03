@@ -7,3 +7,17 @@ It should be able to listen to hits and if hits are equal to the length it shoul
 What should we test? 
 That the factory creates ships succesfully.
 That ships behave according to plan.
+
+
+What data does the gameboard factory need to build a gameboard?
+Nothing
+
+What does the gameboard need to do?
+It should be able to place ships at specific coordinates.
+It should also be able to detect attacks and decide wether it is a hit or a miss.
+In case it's a miss it should save the coordinates and if it is a hit it should call the hit function on the specific ship.
+Lastly it should detect when all of the ships are sunk by calling the isSunk method on each ship.
+
+What should we test? 
+That the factory creates gameboards succesfully.
+That gameboards behave according to plan.
