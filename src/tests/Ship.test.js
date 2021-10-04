@@ -8,12 +8,12 @@ describe('Ship factory function', () => {
     })
 
     it('hits ship', () => {
-        myShip.hit(1);
-        expect(myShip.getHits()[0]).toBe(1);
+        myShip.hit();
+        expect(myShip.getHits()).toBe(1);
     })
 
     it('sinks ship', () => {
-        myShip.hit(2)
+        myShip.hit()
         expect(myShip.isSunk()).toBeTruthy();
     })
 })
