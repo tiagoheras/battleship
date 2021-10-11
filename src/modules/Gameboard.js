@@ -25,7 +25,7 @@ function Gameboard() {
             usedPositions.push(newPosition);
         }
 
-        if (usedPositions.every(usedPosition => getEmptyBoxes().some(box => comparePositions(box.position, usedPosition)) && !isAdjacentToShip(usedPosition))) {
+        if (usedPositions.every(usedPosition => isPositionValidForPlacement(usedPosition))) {
             let newBoard = [...board]
 
             let boxIndexes = usedPositions.map(usedPosition => board.findIndex(box => comparePositions(box.position, usedPosition)));
@@ -78,6 +78,8 @@ function Gameboard() {
 
     const isAdjacentToShip = position => getAdjacentBoxes(position).some(adjacentBox => adjacentBox.ship) ? true : false;
 
+    const isPositionValidForPlacement = position => getEmptyBoxes().some(emptyBox => comparePositions(emptyBox.position, position) && !isAdjacentToShip(position))
+
     const isPositionValid = position => board.some(box => comparePositions(box.position, position));
 
     const getMissedAttacks = () => board.filter(box => box.hasBeenHit && !box.ship);
@@ -86,7 +88,14 @@ function Gameboard() {
 
     const getAvailableBoxes = () => board.filter(box => !box.hasBeenHit);
 
-    const areAllShipsSunk = () => board.filter(box => box.hasBeenHit && box.ship).every(filteredBox => filteredBox.ship.isSunk());
+    const areAllShipsSunk = () => {
+        const hitShipBoxes = board.filter(box => box.hasBeenHit && box.ship);
+        if (hitShipBoxes.length !== 0) {
+            return hitShipBoxes.every(box => box.ship.isSunk())
+        } else {
+            return false
+        }
+    }
 
     return { placeShip, initialize, getBoard, recieveAttack, areAllShipsSunk, getMissedAttacks, getAvailableBoxes, placeShipRandomly }
 }

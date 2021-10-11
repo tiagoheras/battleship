@@ -42,10 +42,10 @@ describe('Gameboard factory function', () => {
         expect(myGameboard.recieveAttack({ x: 0, y: 0 }) instanceof Error).toBeTruthy()
     })
 
-    it('checks wether all ships are sunk', () => {
+    it('checks wether all ships are sunk or not', () => {
         myGameboard.recieveAttack({ x: 0, y: 0 });
         myGameboard.recieveAttack({ x: 0, y: 1 });
-        expect(myGameboard.areAllShipsSunk()).toBeTruthy();
+        expect(myGameboard.areAllShipsSunk()).toBe(true);
     })
 
     it('gets missed attacks', () => {
