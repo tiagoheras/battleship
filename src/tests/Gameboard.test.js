@@ -4,7 +4,6 @@ const Ship = require('../modules/Ship');
 describe('Gameboard factory function', () => {
     const myGameboard = Gameboard();
     const myShip = Ship(2);
-    myGameboard.initialize();
     myGameboard.placeShip(myShip, { x: 0, y: 0 }, 'y');
 
     it('creates a gameboard', () => {
@@ -21,6 +20,15 @@ describe('Gameboard factory function', () => {
                 { position: { x: 0, y: 1 }, ship: myShip, hasBeenHit: false }
             ]
         )
+        expect(myGameboard.placeShip(myShip, { x: 0, y: 9 }, 'y') instanceof Error).toBe(true)
+    })
+
+    it('places ships randomly', () => {
+        const randomGameboard = Gameboard();
+        let ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2), Ship(2)];
+        ships.forEach(ship => randomGameboard.placeShipRandomly(ship));
+        const occupiedBoxes = randomGameboard.getBoard().filter(box => ships.some(ship => ship === box.ship));
+        expect(occupiedBoxes.length).toBe(19);
     })
 
     it('recieves attack', () => {
@@ -38,5 +46,16 @@ describe('Gameboard factory function', () => {
         myGameboard.recieveAttack({ x: 0, y: 0 });
         myGameboard.recieveAttack({ x: 0, y: 1 });
         expect(myGameboard.areAllShipsSunk()).toBeTruthy();
+    })
+
+    it('gets missed attacks', () => {
+        myGameboard.recieveAttack({ x: 4, y: 7 })
+        expect(myGameboard.getMissedAttacks()).toStrictEqual([
+            { position: { x: 4, y: 7 }, hasBeenHit: true },
+        ])
+    })
+
+    it('gets available boxes', () => {
+        expect(myGameboard.getAvailableBoxes() instanceof Array).toBeTruthy()
     })
 })
