@@ -1,5 +1,3 @@
-const Game = require("./modules/Game");
-const UI = require("./modules/UI");
+const { Game, UI } = require("./modules/Game");
 
-UI.initialize();
-Game()
+Game.initialize();

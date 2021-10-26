@@ -1,9 +1,11 @@
+const Ship = require("./Ship");
+
 function Gameboard() {
     let board = [];
 
     const initialize = () => {
-        for (let xPosition = 0; xPosition < 10; xPosition++) {
-            for (let yPosition = 0; yPosition < 10; yPosition++) {
+        for (let yPosition = 0; yPosition < 10; yPosition++) {
+            for (let xPosition = 0; xPosition < 10; xPosition++) {
                 board.push({ position: { x: xPosition, y: yPosition }, hasBeenHit: false })
             }
         }
@@ -35,6 +37,12 @@ function Gameboard() {
         } else {
             return new Error('Position occupied.')
         }
+    }
+
+    const placeShipsRandomly = (ships) => {
+        ships.forEach(ship => {
+            placeShipRandomly(ship)
+        })
     }
 
     const placeShipRandomly = (ship) => {
@@ -89,15 +97,11 @@ function Gameboard() {
     const getAvailableBoxes = () => board.filter(box => !box.hasBeenHit);
 
     const areAllShipsSunk = () => {
-        const hitShipBoxes = board.filter(box => box.hasBeenHit && box.ship);
-        if (hitShipBoxes.length !== 0) {
-            return hitShipBoxes.every(box => box.ship.isSunk())
-        } else {
-            return false
-        }
+        const shipBoxes = board.filter(box => box.ship);
+        return shipBoxes.every(box => box.ship.isSunk());
     }
 
-    return { placeShip, initialize, getBoard, recieveAttack, areAllShipsSunk, getMissedAttacks, getAvailableBoxes, placeShipRandomly }
+    return { placeShip, initialize, getBoard, recieveAttack, areAllShipsSunk, getMissedAttacks, getAvailableBoxes, getEmptyBoxes, placeShipsRandomly }
 }
 
 module.exports = Gameboard;

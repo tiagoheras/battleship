@@ -1,0 +1,46 @@
+body {
+    font-family: 'Poppins';
+}
+
+#grids-container {
+    display: flex;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    width: 500px;
+    height: 500px;
+    margin: 50px;
+}
+
+.occupied {
+    background-color: red;
+}
+
+.ship {
+    background-color: rgb(106, 255, 47);
+}
+
+.box {
+    border: solid 1px black;
+}
+
+#placing-board-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: white;
+}
+
+#result-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #efefef;
+    padding: 30px;
+}

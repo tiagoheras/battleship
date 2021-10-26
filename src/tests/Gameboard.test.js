@@ -24,11 +24,11 @@ describe('Gameboard factory function', () => {
     })
 
     it('places ships randomly', () => {
-        const randomGameboard = Gameboard();
         let ships = [Ship(5), Ship(4), Ship(3), Ship(3), Ship(2), Ship(2)];
-        ships.forEach(ship => randomGameboard.placeShipRandomly(ship));
-        const occupiedBoxes = randomGameboard.getBoard().filter(box => ships.some(ship => ship === box.ship));
-        expect(occupiedBoxes.length).toBe(19);
+        const randomGameboard = Gameboard();
+        randomGameboard.placeShipsRandomly(ships);
+        const occupiedBoxesLength = randomGameboard.getBoard().length - randomGameboard.getEmptyBoxes().length;
+        expect(occupiedBoxesLength).toBe(19);
     })
 
     it('recieves attack', () => {
