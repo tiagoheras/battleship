@@ -95,6 +95,7 @@ const UI = (function () {
                 if (shipIndex === ships.length) {
                     placingBoardContainer.remove();
                     Game.renderBoards();
+                    shipIndex = 0;
                 }
             })
 
@@ -116,6 +117,8 @@ const UI = (function () {
         playAgainBtn.innerText = 'Play Again';
         playAgainBtn.addEventListener('click', () => {
             resultContainer.remove();
+            playerBoard.innerHTML = ''; 
+            computerBoard.innerHTML = ''; 
             Game.initialize();
         });
 
@@ -142,8 +145,6 @@ const UI = (function () {
                 computerBoard.appendChild(boxDiv); 
             } else {
                 if (box.ship) {
-                    console.log(box.ship.getHits());
-                    console.log(box.ship.isSunk());
                     box.ship.isSunk() ? boxDiv.classList.add('occupied') : boxDiv.classList.add('ship')
                 }
                 playerBoard.appendChild(boxDiv);
